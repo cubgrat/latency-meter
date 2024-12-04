@@ -103,15 +103,15 @@ elements.stop.addEventListener('click', () => {
   isRunning.current = false;
   isPreparing = false;
   elements.progress.style.display = 'none';
-  elements.tapZone.innerHTML = 'Tap here to start';
+  elements.tapZone.innerHTML = 'Нажмите сюда';
 });
 
 function countdownMessage(count) {
   return `
     <h1>${count}</h1>
-      On "zero", the beat will play. 
+      На отметке <b>0</b> будет звук. 
       <br>
-      Tap when you hear it.
+      Нажмите, когда услышите.
     `;
 }
 
@@ -149,7 +149,7 @@ elements.tapZone.addEventListener('click', () => {
 
   isPreparing = true;
   isRunning.current = true;
-  elements.tapZone.innerHTML = `Get ready`;
+  elements.tapZone.innerHTML = `Приготовься`;
   elements.progress.style.display = 'block';
 
   let fiveS = 5_000;
@@ -174,7 +174,7 @@ elements.tapZone.addEventListener('click', () => {
 
         gettingReadyTimeout = setTimeout(() => {
           countdown.current = 0;
-          elements.tapZone.innerHTML = 'Tap<br><span style="font-size: x-small;">Space</span>';
+          elements.tapZone.innerHTML = 'Нажми<br><span style="font-size: x-small;">Space</span>';
           clearInterval(progressInterval);
           elements.progress.style.display = 'none';
           isPreparing = false;
@@ -189,7 +189,7 @@ elements.tapZone.addEventListener('click', () => {
 DEBUG_RENDERER.render({
   render: () => userTempo.current,
   debug: (tempo) => {
-    elements.detectedBpm.innerHTML = tempo ? tempo.toFixed(3) : 'pending';
+    elements.detectedBpm.innerHTML = tempo ? tempo.toFixed(3) : 'ожидание...';
   },
 });
 
@@ -251,9 +251,9 @@ DEBUG_RENDERER.render({
     // tenths of milliseconds.
     let rounded = ms ? ms.toFixed(1) : 0;
     let beatDuration = MS_IN_M / bpm;
-    let mod = rounded ? (rounded % (MS_IN_M / bpm)).toFixed(1) : 'pending';
+    let mod = rounded ? (rounded % (MS_IN_M / bpm)).toFixed(1) : 'ожидание...';
 
-    elements.latencyDisplay.innerHTML = rounded || 'pending';
+    elements.latencyDisplay.innerHTML = rounded || 'ожидание...';
     elements.modLatencyDisplay.innerHTML = mod;
   },
 });
