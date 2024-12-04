@@ -109,9 +109,7 @@ elements.stop.addEventListener('click', () => {
 function countdownMessage(count) {
   return `
     <h1>${count}</h1>
-      На отметке <b>0</b> будет звук. 
-      <br>
-      Нажмите, когда услышите.
+      Нажмите, когда услышите звук.
     `;
 }
 
