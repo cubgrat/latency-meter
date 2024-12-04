@@ -103,7 +103,7 @@ elements.stop.addEventListener('click', () => {
   isRunning.current = false;
   isPreparing = false;
   elements.progress.style.display = 'none';
-  elements.tapZone.innerHTML = 'Нажмите сюда';
+  elements.tapZone.innerHTML = 'Нажмите, чтобы начать';
 });
 
 function countdownMessage(count) {
