@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,72 +23,160 @@
     />
 
     <style>
+      /* Общие стили для body */
       body {
-        padding: 1rem 2rem;
+        font-family: 'Arial', sans-serif;
+        padding: 2rem;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f9f9f9;
       }
 
-      footer {
-        position: fixed;
-        bottom: 1rem;
-        background: white;
+      h1 {
+        font-size: 2.5rem;
+        color: #333;
+        text-align: center;
+        margin-bottom: 1rem;
       }
 
-      progress {
-        margin: 0 auto;
+      p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: #555;
+        max-width: 800px;
+        margin-bottom: 2rem;
+        text-align: center;
       }
 
-      #interaction {
-        margin: 0 auto;
-        height: 200px;
-        width: 200px;
-        position: relative;
-      }
-
-      #tap-zone {
-        width: 200px;
-        height: 200px;
+      p em {
+        font-style: italic;
+        font-weight: 600;
+        color: #ff6347;
       }
 
       #data {
         display: grid;
-        gap: 0.75rem;
-        grid-auto-flow: row;
-      }
-
-      .info-with-details {
-        width: 300px;
-        max-width: 300px;
-        display: grid;
-        grid-auto-flow: row;
-        margin: 0 auto;
-      }
-
-      .info-with-details details {
-        line-height: 1.2rem;
-        font-size: 0.8rem;
+        gap: 1rem;
+        grid-template-rows: repeat(5, auto);
+        width: 100%;
+        max-width: 500px;
+        padding: 1rem;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       }
 
       label {
-        margin: 0 auto;
-        width: 100%;
-        max-width: 300px;
-        display: grid;
-        gap: 1rem;
-        grid-auto-flow: column;
-        line-height: 1.5rem;
+        display: flex;
         justify-content: space-between;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
       }
 
       input {
-        max-width: 80px;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 120px;
+        text-align: right;
+      }
+
+      #interaction {
+        margin: 2rem 0;
+        height: 200px;
+        width: 200px;
+      }
+
+      #tap-zone {
+        width: 100%;
+        height: 100%;
+        background-color: #ff6347;
+        border: none;
+        color: white;
+        border-radius: 50%;
+        font-size: 1.25rem;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      #tap-zone:hover {
+        background-color: #d9534f;
+        transform: scale(1.05);
+      }
+
+      #tap-zone:active {
+        background-color: #c12e2a;
+        transform: scale(0.95);
+      }
+
+      .info-with-details {
+        font-size: 0.9rem;
+      }
+
+      .info-with-details details summary {
+        color: #007bff;
+        cursor: pointer;
+      }
+
+      .info-with-details details {
+        margin-top: 0.5rem;
       }
 
       #stop {
         position: fixed;
-        padding: 0.75rem;
+        padding: 0.75rem 1.25rem;
         z-index: 1;
         bottom: 2rem;
         right: 2rem;
+        background-color: #ff6347;
+        border: none;
+        color: white;
+        border-radius: 8px;
+        font-size:         1rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      #stop:hover {
+        background-color: #d9534f;
+        transform: scale(1.05);
+      }
+
+      #stop:active {
+        background-color: #c12e2a;
+        transform: scale(0.95);
+      }
+
+      progress {
+        width: 100%;
+        max-width: 500px;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      progress::-webkit-progress-bar {
+        background-color: #f3f3f3;
+        border-radius: 10px;
+      }
+
+      progress::-webkit-progress-value {
+        background-color: #ff6347;
+        border-radius: 10px;
       }
     </style>
   </head>
@@ -97,64 +184,69 @@
   <body>
     <h1>Latency Tester</h1>
     <p>
-      Find out how many milliseconds of delay there is between the sound's play-start time, and when
-      you hear it.
+      Узнайте, сколько миллисекунд задержки возникает между началом проигрывания звука и моментом,
+      когда вы его слышите.
 
       <br /><br />
 
-      <em>Instructions</em><br />
-      Tap the button on beat. The delay will be measured on a trailing average of the last 10 beats.
-      You'll have a countdown and timer until the starting beat.
+      <em>Инструкция</em><br />
+      Нажимайте кнопку в ритм. Задержка будет измеряться по скользящему среднему значений
+      последних 10 нажатий. Перед началом ритма у вас будет обратный отсчет.
     </p>
 
     <div id="data">
+      <!-- Input BPM -->
       <label>
-        <span>Current BPM</span>
-        <input style="width: auto" type="number" id="bpm" min="60" />
+        <span>Текущие BPM</span>
+        <input type="number" id="bpm" min="60" placeholder="Введите BPM" />
       </label>
 
+      <!-- Beat Duration -->
       <label>
-        <span>ms between beats</span>
+        <span>мс между ударами</span>
         <span id="beatDuration">0</span>
       </label>
 
+      <!-- Current Latency -->
       <label>
-        <span>Current Latency (ms)</span>
+        <span>Текущая задержка (мс)</span>
         <span id="latency">0</span>
       </label>
 
+      <!-- Modulo Details -->
       <span class="info-with-details">
         <label>
-          <span>Modulo between beats (ms)</span>
+          <span>Остаток между ударами (мс)</span>
           <span id="modLatency">0</span>
         </label>
         <details>
-          <summary>What's this?</summary>
-          If you happen to miss the first beat, this tries to calculate what your latency would be.
-          <br /><br />
-          The calculation is <code>[current latency] % [ms between beats]</code>. It's possible for
-          someone's hardware to have latency that extends beyond the duration of a whole beat, so
-          it's hard to know if a person just missed a beat, or if they really did click the moment
-          they heard the first beat.
-
-          <br /><br />
-          Ideally, this number is the same as "Current Latency"
+          <summary>Что это?</summary>
+          Если вы пропустили первый удар, это значение пытается вычислить вашу задержку. Формула
+          вычисления: <code>[текущая задержка] % [мс между ударами]</code>. Такое поведение
+          может происходить из-за того, что у оборудования есть латентность, превышающая один
+          удар. Идеальным результатом будет совпадение этого значения с "Текущей задержкой".
         </details>
       </span>
 
+      <!-- Detected BPM -->
       <label>
-        <span>Detected BPM</span>
+        <span>Обнаруженные BPM</span>
         <span id="detectedBPM"></span>
       </label>
     </div>
 
     <div id="interaction">
-      <button id="tap-zone">Tap here to start</button>
+      <!-- Tap Zone -->
+      <button id="tap-zone">Нажмите, чтобы начать</button>
     </div>
+
+    <!-- Progress Bar -->
     <progress style="display: none" id="progress" value="100" max="5000"></progress>
 
-    <button style="display: none" id="stop">Stop</button>
+    <!-- Stop Button -->
+    <button style="display: none" id="stop">Остановить</button>
 
     <script type="module" src="./src/main.js"></script>
   </body>
 </html>
+
